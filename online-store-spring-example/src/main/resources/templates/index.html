@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ONLINE STORE | HOME</title>
+<!-- 	<link rel = "stylesheet"  type="text/css" href="../static/index.css"/> -->
+	<link rel = "stylesheet"  type="text/css" th:href="@{/index.css}"/>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>
+	
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}">Home</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi}">Negozi</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi/create}">Crea Negozio</a>
+		</span>
+	</nav>
+	
+	<div class="top container">
+		<div class= "header">
+			<h1 class="text title"> Online </h1>
+			<span class = "line"></span>
+			<h1 class="text title stroke"> Store </h1>
+		</div>
+<!-- 		<img src="../static/assets/indexBg.png" class="banner"/> -->
+		<img th:src="@{/assets/banner.png}" class="banner" draggable="false"/>	
+	</div>
+	
+	<form th:action="@{/prodotti}"  method="GET" class = "container" id="fromProdotto">
+		<h2 class="text title"> Cerchi qualcosa nello specifico? </h2>
+		<div>
+			<label class="text">Prodotto</label>
+			<input th:text="${prefix}" name="prefix" type="text">
+			<input type="submit" value="Cerca Prodotti"> 
+		</div>
+	</form>
+	
+	<form th:action="@{/negozi/da-citta}" method="GET" class = "container" id="fromCitta">
+		<h2 class="text title"> Cerca i Negozi più vicini a te!</h2>
+		<div>
+			<label class="text">Citta</label>
+			<input th:text="${citta_nome}" name="citta_nome" type="text">
+			<p class="sub text"> oppure </p>
+			<label class="text">CAP</label>
+			<input th:text="${citta_cap}" name="citta_cap" type="text" id="capField">
+			<input type="submit" value="Cerca Negozi"> 
+		</div>
+	</form>
+
+</body>
+</html>

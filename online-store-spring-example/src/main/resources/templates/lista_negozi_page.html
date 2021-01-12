@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Negozi | ONLINE STORE</title>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}">Home</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi/create}">Crea Negozio</a>
+		</span>
+	</nav>
+	<h1>Pagina Negozi</h1>
+		<div th:each="negozio: ${negozi}" class="card" id="negozioCard">
+		 	<h3 th:text="${negozio.getNome()}" class= "text title"></h3>
+		 	<p th:text="${negozio.getIndirizzo() + ', ' + negozio.getCittaNome()}" class="text"></p>
+		 	<a th:href="@{/negozi/{id}/prodotti(id=${negozio.getId()})}">
+		 		<div>GO TO</div>
+		 	</a>
+		</div>
+</body>
+</html>

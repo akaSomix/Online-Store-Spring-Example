@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${prodottoCurrent.getNome() + ' | ONLINE STORE'}"></title>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>	
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}">Home</a>
+		</span>
+		<span th:if="${negozioId != null}" class="button-box">
+			<a th:href="@{/negozi/{id}/prodotti(id=${negozioId})}">Torna al Negozio</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi}">Negozi</a>
+		</span>
+	</nav>
+	<h1 th:text="${prodottoCurrent.getNome()}"></h1>
+
+	<div class="container">
+		<!-- Dettagli -->
+		<h4 th:text="${prodottoCurrent.getDescrizione()}"></h4>
+		<h2 th:text="${prodottoCurrent.getPrezzo() + '€'}">PREZZO</h2>
+		<h3 th:text="${prodottoCurrent.getCategoriaNome()}">CATEGORIA</h3>
+		
+		<!-- Disponibilita -->
+		<div th:if="negoziFornitori != null">
+			<h3> Disponibile nei Negozi:</h3>
+			<table>
+				<tr th:each="fornitore : ${negoziFornitori}">
+					<td> 
+						<a th:href="@{/negozi/{id}/prodotti(id=${fornitore.getId()})}" th:text="${fornitore.getNome()}"> </a> 
+					</td>
+					<td th:text="${fornitore.getIndirizzo() + ','}"></td>
+					<td th:text="${fornitore.getCittaNome()}"></td>
+					<td th:text="${fornitore.getCittaCap()}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

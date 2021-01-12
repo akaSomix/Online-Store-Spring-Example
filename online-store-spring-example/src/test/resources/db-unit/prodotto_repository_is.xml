@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	
+	<!-- CATEGORIA TABLE -->
+	<Categoria Categoria_Id = "1" nome = "Ciao Amanda" descrizione = "None"/>
+	
+	<!-- CITTA TABLE -->	
+	<Citta citta_id = "1" nome = "Roma" cap = "00001" stato = "Italia" />
+	<Citta citta_id = "2" nome = "Cosenza" cap = "84003" stato = "Italia" />
+	<Citta citta_id = "3" nome = "Sibari" cap = "87011" stato = "Italia" provincia_id = "2" />	
+	
+	<!-- CLIENTE TABLE -->
+	<Cliente/>
+
+	<!-- DISPONIBILITA TABLE -->
+	<Disponibilita/>
+
+	<!-- LISTAPRODOTTI TABLE -->
+	<Lista_Prodotti/>
+
+	<!-- NEGOZIO TABLE -->
+	<Negozio/>
+
+	<!-- ORDINE TABLE -->
+	<Ordine/>
+
+	<!-- PRODOTTO TABLE -->
+	<Prodotto Prodotto_Id="1" Codice_Prodotto="prd1" Nome="p1" Prezzo="23.3" Descrizione="None" Categoria_Id="1"/>
+	<Prodotto Prodotto_Id="2" Codice_Prodotto="prd2" Nome="p1" Prezzo="23.3" Descrizione="None" Categoria_Id="1"/>
+	<Prodotto Prodotto_Id="3" Codice_Prodotto="prd3" Nome="p1" Prezzo="23.3" Descrizione="None" Categoria_Id="1"/>
+	<Prodotto Prodotto_Id="4" Codice_Prodotto="prd4" Nome="p1" Prezzo="23.3" Descrizione="None" Categoria_Id="1"/>
+
+</dataset>

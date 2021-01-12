@@ -1,0 +1,108 @@
+*{
+	margin : 0;
+}
+
+/* TODO DELETE, JUST FOR DEBUG PURPOSE */
+/* div, form, h1, h2, h3, img, a, span{ */
+/* 	border: 1px solid red; */
+/* } */
+
+body {
+	color: #2a2726;
+	background-color: #ede5d7;
+	min-height: 700px;
+	min-width: 1700px;
+}
+
+.top.container{
+	display: flex;
+	margin: auto;
+	width: 95%;
+	height: 900px;
+	justify-content: center;
+}
+
+.header{
+	position: relative;
+	width: 900px;
+}
+
+img.banner{
+	width:900px;
+	height:500px;
+	margin: auto;
+}
+
+h1.title{
+	width: 800px;
+	text-align: center;
+	font-size: 170pt;
+	
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	
+	cursor: default;
+}
+
+.stroke{
+	color: transparent;
+	-webkit-text-stroke: 6px #f1792f;
+}
+
+.line{
+	display:block;
+	position: relative;
+	margin-left: 70px;
+	width: 650px;
+	height: 10px;
+	background-color: #2a2726;
+}
+.container{
+	position: relative;
+	width: 100%;
+}
+
+.container div{
+	margin: auto;
+	width: 60%;
+	height: 70%;
+}
+
+
+/* Individuals */
+
+#fromProdotto{
+	background-color: #2eafc6;
+	height: 400px;
+}
+
+#fromProdotto .title{
+	padding-left: 100px;
+}
+
+#fromCitta{
+	background-color: #f1792f;
+	height: 500px;
+	color: white;
+}
+
+#fromCitta .title{
+	text-align: right;
+	padding-right: 100px;
+}
+
+/* Text options */
+
+
+.text{
+	font-family: Tahoma, sans-serif;
+}
+
+h2.text{
+	padding: 30px;
+	font-size: 40pt;
+	text-shadow: 0px 3px 0px rgba(0,0,0,.2);
+}

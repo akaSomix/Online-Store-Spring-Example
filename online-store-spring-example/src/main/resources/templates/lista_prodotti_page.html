@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>ONLINE STORE | Prodotti</title>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>		
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}">Home</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi}">Negozi</a>
+		</span>
+	</nav>
+
+	<h1>Pagina Prodotti</h1>
+	
+	<table class = "container">
+		<div th:each="prodotto: ${prodotti}">
+			<h3 th:text="${prodotto.getNome()}"></h3>
+			<p th:text="${prodotto.getPrezzo() + '€'}"></p>
+		 	<a th:href="@{/prodotti/{codice}(codice=${prodotto.getCodice()})}">
+		 		<p>GO TO</p>
+		 	</a>
+		</div>
+	</table>
+</body>
+</html>

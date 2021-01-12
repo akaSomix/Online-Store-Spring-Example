@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	
+	<!-- CATEGORIA TABLE -->
+	<Categoria/>
+	
+	<!-- CITTA TABLE -->	
+	<Citta/>
+
+	<!-- CLIENTE TABLE -->
+	<Cliente/>
+
+	<!-- DISPONIBILITA TABLE -->
+	<Disponibilita/>
+
+	<!-- LISTAPRODOTTI TABLE -->
+	<Lista_Prodotti/>
+
+	<!-- NEGOZIO TABLE -->
+	<Negozio/>
+
+	<!-- ORDINE TABLE -->
+	<Ordine/>
+
+	<!-- PRODOTTO TABLE -->
+	<Prodotto/>
+	
+</dataset>

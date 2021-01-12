@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${negozio.getNome() + ' | ONLINE STORE'}"></title>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}">Home</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi}">Negozi</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi/{id}/prodotti/add(id=${negozio.getId()})}">Aggiungi Prodotti</a>
+		</span>
+	</nav>
+	<h1 th:text="${'Prodotti di ' + negozio.getNome()}"></h1>
+
+	<div class="container">
+		<div th:each="prodotto: ${prodottiInNegozio}" class="card" id="prodottoCard">
+			<div id="placeholderImg"></div>
+		 	<h3 th:text="${prodotto.getNome()}" class= "text title"></h3>
+		 	<p th:text="${prodotto.getPrezzo() + '€'}" class="text"></p>
+		 	<p th:text="${prodotto.getDescrizione()}" class="text"></p>
+		 	<p th:text="${prodotto.getCategoriaNome()}" class="text"></p>
+		 	<a th:href="@{/negozi/{id}/prodotti/{codice}(id=${negozio.getId()}, codice=${prodotto.getCodice()})}">Mostra altro</a>
+		</div>
+	
+	</div>
+</body>
+</html>

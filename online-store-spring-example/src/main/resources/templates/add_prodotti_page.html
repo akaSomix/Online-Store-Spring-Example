@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${'Aggiungi Prodotti a ' + negozio.getNome() + ' | ONLINE STORE'}" ></title>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}" >Home</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi/{id}/prodotti(id=${negozio.getId()})}" th:text="${'Torna a ' + negozio.getNome()}"></a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi/{id}/prodotti/create-new(id=${negozio.getId()})}" >Nuovo Prodotto</a>
+		</span>
+	</nav>
+	
+	<div th:if="${noProductsFlag} == true">
+		<h1>Nessun Prodotto Disponibile per essere Aggiunto</h1>
+		<h3><a th:href="@{/negozi/{id}/prodotti/create-new(id=${negozio.getId()})}"> Creane uno Nuovo!</a></h3>
+	</div>
+	
+	<!-- Addition Form -->
+	<div th:if="${noProductsFlag} == false" class="container" >
+		<form th:each="prodotto: ${prodotti}"
+	 	th:action="@{/negozi/{id}/prodotti/add-submit(id=${negozio.getId()})}" 
+	 	th:object="${formDisponibilita}" method="POST">
+	 
+			<h3 th:text="${prodotto.getNome()}"></h3>
+			<h4 th:text="${prodotto.getPrezzo() + '€'}"></h4>
+			<p>Quantita:</p>
+			<input th:field="*{quantita}"/>
+			<!-- hidden values -->
+			<select hidden type="text" th:field= "*{prodottoId}" >
+				<option hidden th:value="${prodotto.getId}" selected="selected"></option>
+			</select>
+			<select hidden type="text" th:field= "*{negozioId}">
+				<option hidden th:value="${negozio.getId()}" selected="selected"></option>
+			</select>
+			<input type="submit" value="Aggiungi"/>		
+		</form>
+	</div>
+
+			
+</body>
+</html>

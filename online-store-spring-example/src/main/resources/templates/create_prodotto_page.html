@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Crea Nuovo Prodotto | ONLINE STORE</title>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}" >Home</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{add}" >Torna ad Aggiungi</a>
+		</span>
+	</nav>
+	
+	<!-- Creation Form -->
+	<div class="container">
+		<form th:action="@{/negozi/{id}/prodotti/create-new(id=${negozioId})}" th:object="${prodottoForm}" method="POST" >
+			<p> Codice: <input type="text" th:field="*{codice}" th:maxlength="${prodottoCodiceLength}" id="codiceProdotto"/> <p> 
+			<p> Nome: <input type="text" th:field="*{nome}"/> <p> 
+			<p> Descrizione: <input type="text" th:field="*{descrizione}" th:maxlength="${prodottoDescrizioneMaxLength}"/> <p>
+			<p> Prezzo:<input type="number" step="0.01" value="-1" th:field="*{prezzo}"/> €</p>
+			<p>Categoria:</p>
+			<select th:field="*{categoriaId}">
+				<option value="" disabled> -- Seleziona -- </option>
+				<option th:each="categoria : ${categorie}" 
+						th:value="${categoria.getId()}" 
+						th:text="${categoria.getNome()}" />
+			</select>
+			<input type="submit" value="Aggiungi Prodotto" id="submitCreateProdotto">
+		</form>
+	</div>
+	
+	<!-- Controllo Codice Unico -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+	    var codici = /*[[${codiciEsistenti}]]*/ '[]';
+		/*]]>*/
+	
+		var submitElement = document.getElementById("submitCreateProdotto");
+		var codiceElement = document.getElementById("codiceProdotto");
+		codiceElement.addEventListener("blur", () => {
+			// Se il codice e' gia' presente nella lista...
+			if (codici.includes(codiceElement.value)) {
+				//...disattiva il tasto submit e...
+				submitElement.disabled = true;
+				
+				//...mostra Styling error
+				//TODO
+			} else {
+				//...altrimenti attiva il tasto submit e...
+				submitElement.disabled = false;
+				//...nascondi styling error
+				//TODO
+			}
+		});
+		
+	</script>
+
+</body>
+</html>

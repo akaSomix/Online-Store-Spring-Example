@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title> Crea Negozio | ONLINE STORE</title>
+	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>
+</head>
+<body>
+	<nav>
+		<span class="button-box">
+			<a th:href="@{/}" >Home</a>
+		</span>
+		<span class="button-box">
+			<a th:href="@{/negozi}">Negozi</a>
+		</span>
+	</nav>
+	
+	<!-- Creation Form -->
+	<div class="container">
+		<form th:action="@{/negozi/create}" th:object="${negozioForm}" method="POST" >
+			<p> Nome: <input type="text" th:field="*{nome}"/> <p> 
+			<p> Indirizzo:<input type "text" th:field="*{indirizzo}"/> </p>
+			<select th:field="*{cittaId}">
+				<option value="" disabled> -- Seleziona -- </option>
+				<option th:each="citta : ${cittaList}" 
+						th:value="${citta.getId}"
+						th:text="${citta.getCap() + '--' +citta.getNome()}" />
+			</select>
+			<input type="submit" value="Aggiungi Negozio"> 
+		</form>
+	</div>
+</body>
+</html>
