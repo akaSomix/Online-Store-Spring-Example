@@ -94,4 +94,15 @@ public class NegozioServiceImpl implements INegozioService {
 		}
 		return saved;
 	}
+
+	@Override
+	public void delete(NegozioEntity entity) throws DataRelatedException {
+		try {
+			negozioRepository.delete(entity);
+		}catch(final DataIntegrityViolationException e) {
+			throw new DataRelatedException("Error deleting entity with id " + entity.getNegozioId() + " and nome " + entity.getNome());
+		}
+	}
+	
+	
 }

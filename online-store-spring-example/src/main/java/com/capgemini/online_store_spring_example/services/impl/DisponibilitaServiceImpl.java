@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.online_store_spring_example.commons.DataRelatedException;
 import com.capgemini.online_store_spring_example.entities.DisponibilitaEntity;
+import com.capgemini.online_store_spring_example.entities.NegozioEntity;
 import com.capgemini.online_store_spring_example.repositories.DisponibilitaRepository;
 import com.capgemini.online_store_spring_example.services.IDisponibilitaService;
 
@@ -30,6 +31,16 @@ public class DisponibilitaServiceImpl implements IDisponibilitaService {
 		}
 		
 		return saved;
+	}
+
+	@Override
+	@Transactional(rollbackOn = DataRelatedException.class)
+	public void deleteByNegozio(NegozioEntity negozio) throws DataRelatedException {
+		try {
+			disponibilitaRepository.deleteByNegozio(negozio);
+		}catch(final DataIntegrityViolationException e){
+			throw new DataRelatedException("Error deleting " + this.getClass().getName() + " from Negozio id " + negozio.getNegozioId());
+		}
 	}
 
 }

@@ -75,6 +75,30 @@ public class NegoziPageController {
 		return "lista_negozi_page";
 	}
 	
+	@RequestMapping(value = "/negozi/{id}", method = RequestMethod.GET)
+	public String getNegozio(@PathVariable("id") Long id,Model model) {
+		return "redirect:" + id + "/prodotti";
+	}
+	
+	@RequestMapping(value = "/negozi/{id}", method = RequestMethod.DELETE)
+	public String deleteNegozio(@PathVariable("id") Long id, Model model) {
+		// Negozio da eliminare 
+		NegozioVm negozio = negozioService.findById(id);
+		
+		try {
+			// Elimina le dipendenze in Disponibilita
+			disponibilitaService.deleteByNegozio(negozio);
+			
+			// Elimina il Negozio
+			negozioService.delete(negozio);
+		} catch(DataRelatedException e) {
+			//TODO HANDLE Data Related Exception on saving a new negozio
+			return "redirect:/negozi";
+		}
+		
+		return "index";
+	}
+	
 	@RequestMapping(value = "/negozi/{id}/prodotti", method = RequestMethod.GET)
 	public String getAllProducts(@PathVariable("id") Long id,Model model) {
 		

@@ -58,4 +58,9 @@ public class NegozioServiceFacade {
 		negozioService.save(negozioEntity);
 	}
 	
+	public void delete(final NegozioVm negozio) throws DataRelatedException{
+		NegozioEntity negozioEntity = negozioAssembler.toEntity(negozio); 
+		negozioService.delete(negozioEntity);
+	}
+	
 }

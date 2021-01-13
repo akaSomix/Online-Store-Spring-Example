@@ -72,7 +72,7 @@ public class HomeController {
 			negozioService.save(negozio);
 		}catch(DataRelatedException e) {
 			//TODO HANDLE Data Related Exception on saving a new negozio
-			return "index";
+			return "redirect:/";
 		}
 		return "redirect:/";
 	}

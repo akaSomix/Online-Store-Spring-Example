@@ -19,4 +19,6 @@ public interface INegozioService {
 	public List<ProdottoEntity> findProdottiDisponibiliByNegozioId(final Long id);
 	
 	public NegozioEntity save(final NegozioEntity entity) throws DataRelatedException;
+	
+	public void delete(final NegozioEntity entity) throws DataRelatedException;
 }
