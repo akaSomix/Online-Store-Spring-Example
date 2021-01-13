@@ -2,11 +2,11 @@ package com.capgemini.online_store_spring_example.viewmodels;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.capgemini.online_store_spring_example.commons.EntityConstants;
-import com.sun.istack.NotNull;
 
 import lombok.Data;
 
@@ -27,7 +27,6 @@ public class ProdottoVm implements IViewModel{
 	@Length(max = EntityConstants.PRODOTTO_ENTITY_DESCRIZIONE_LENGTH)
 	private String descrizione;
 
-	@NotBlank
 	@Min(value = 0)
 	private Double prezzo;
 
