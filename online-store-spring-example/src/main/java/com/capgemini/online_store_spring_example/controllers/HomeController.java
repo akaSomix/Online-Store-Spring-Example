@@ -3,9 +3,12 @@ package com.capgemini.online_store_spring_example.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +58,16 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/negozi/create", method = RequestMethod.POST)
-	public String addNegozio(@ModelAttribute(value="formNegozio") NegozioVm negozio) {
+	public String addNegozio(@Valid @ModelAttribute(value="formNegozio") NegozioVm negozio,
+			BindingResult bindingResult) {
+		
+		// Controllo Validazione
+		if(bindingResult.hasErrors()) {
+			log.error(negozio.getClass().getName() + " -- with parameters " + negozio.toString() + " is NOT VALID");
+			return "redirect:/negozi";
+		}
+		
+		// Salvataggio entities 
 		try {
 			negozioService.save(negozio);
 		}catch(DataRelatedException e) {

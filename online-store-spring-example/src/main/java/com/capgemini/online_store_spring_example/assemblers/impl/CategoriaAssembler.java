@@ -3,6 +3,7 @@ package com.capgemini.online_store_spring_example.assemblers.impl;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.online_store_spring_example.assemblers.IAssemblerFactory;
+import com.capgemini.online_store_spring_example.commons.EntityConstants;
 import com.capgemini.online_store_spring_example.entities.CategoriaEntity;
 import com.capgemini.online_store_spring_example.viewmodels.CategoriaVm;
 
@@ -18,7 +19,12 @@ public class CategoriaAssembler implements IAssemblerFactory<CategoriaVm, Catego
 		
 		if(viewModel.getId() != null)entity.setCategoriaId(viewModel.getId());
 		entity.setNome(viewModel.getNome());
-		entity.setDescrizione(viewModel.getDescrizione());
+
+		if(viewModel.getDescrizione() != null) {
+			entity.setDescrizione(EntityConstants.DEFAULT_CATEGORIA_ENTITY_DESCRIZIONE);
+		} else {
+			entity.setDescrizione(viewModel.getDescrizione());
+		}
 		
 		return entity;
 	}

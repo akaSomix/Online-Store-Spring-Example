@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.online_store_spring_example.assemblers.IAssemblerFactory;
+import com.capgemini.online_store_spring_example.commons.EntityConstants;
 import com.capgemini.online_store_spring_example.entities.CategoriaEntity;
 import com.capgemini.online_store_spring_example.entities.ProdottoEntity;
 import com.capgemini.online_store_spring_example.services.ICategoriaService;
@@ -26,7 +27,14 @@ public class ProdottoAssembler implements IAssemblerFactory<ProdottoVm, Prodotto
 		if(viewModel.getId() != null)entity.setProdottoId(viewModel.getId());
 		entity.setCodiceProdotto(viewModel.getCodice());
 		entity.setNome(viewModel.getNome());
-		entity.setDescrizione(viewModel.getDescrizione());
+		
+		// Inserimento di una descrizione di Default se non presente
+		if(viewModel.getDescrizione() != null) {
+			entity.setDescrizione(EntityConstants.DEFAULT_PRODOTTO_ENTITY_DESCRIZIONE);
+		} else {
+			entity.setDescrizione(viewModel.getDescrizione());
+		}
+		
 		entity.setPrezzo(viewModel.getPrezzo());
 		
 		CategoriaEntity categoria = categoriaService.findById(viewModel.getCategoriaId());

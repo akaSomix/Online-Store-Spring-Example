@@ -2,6 +2,8 @@ package com.capgemini.online_store_spring_example.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -114,9 +116,16 @@ public class NegoziPageController {
 	
 	@RequestMapping(value = "/negozi/{id}/prodotti/add-submit", method = RequestMethod.POST)
 	public String submitAddProdottiForm(@PathVariable("id") Long id, 
-			@ModelAttribute(value = "formDisponibilita") DisponibilitaVm formDisponibilita,
-			Model model) {
-
+			@Valid @ModelAttribute(value = "formDisponibilita") DisponibilitaVm formDisponibilita,
+			BindingResult bindingResult, Model model) {
+		
+		// Controllo Validazione
+		if(bindingResult.hasErrors()) {
+			log.error(formDisponibilita.getClass().getName() + " -- with parameters " + formDisponibilita.toString() + " is NOT VALID");
+			return "redirect:/negozi/" + id + "/prodotti";
+		}
+		
+		// Salvataggio entities 
 		try {
 			disponibilitaService.save(formDisponibilita);
 		}catch(DataRelatedException e) {
@@ -162,9 +171,16 @@ public class NegoziPageController {
 	
 	@RequestMapping(value = "/negozi/{id}/prodotti/create-new", method = RequestMethod.POST)
 	public String submitCreateProdottoFromNegozio(@PathVariable("id") Long id,
-			@ModelAttribute(value = "prodottoForm") ProdottoVm prodottoForm,
-			Model model) {
+			@Valid @ModelAttribute(value = "prodottoForm") ProdottoVm prodottoForm,
+			BindingResult bindingResult ,Model model) {
 		
+		// Controllo Validazione
+		if(bindingResult.hasErrors()) {
+			log.error(prodottoForm.getClass().getName() + " -- with parameters " + prodottoForm.toString() + " is NOT VALID");
+			return "redirect:/negozi/" + id + "/prodotti";
+		}
+		
+		// Salvataggio entities 
 		try {
 			prodottoService.save(prodottoForm);
 		}catch(DataRelatedException e) {

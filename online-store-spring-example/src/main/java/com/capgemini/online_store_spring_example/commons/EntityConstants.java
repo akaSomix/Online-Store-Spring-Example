@@ -68,6 +68,16 @@ public final class EntityConstants {
 	
 	public static final int SEQUENCE_ALLOCATION_SIZE = 1;
 
+	
+	/*
+	 * DEFAULT VALUES
+	 */
+	
+	// CATEGORIA DESCRIZIONE DEFAULT 
+	public static final String DEFAULT_CATEGORIA_ENTITY_DESCRIZIONE = "Nessuna Descrizione";
+	
+	// PRODOTTO DESCRIZIONE DEFAULT 
+	public static final String DEFAULT_PRODOTTO_ENTITY_DESCRIZIONE = "Nessuna Descrizione";
 
 
 }
