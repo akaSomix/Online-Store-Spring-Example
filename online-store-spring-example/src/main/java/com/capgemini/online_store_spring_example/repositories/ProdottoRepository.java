@@ -15,6 +15,9 @@ import com.capgemini.online_store_spring_example.entities.ProdottoEntity;
 @Repository("prodottoRepository")
 public interface ProdottoRepository extends JpaRepository<ProdottoEntity, Long> {
 
+	@Query("SELECT p.codiceProdotto FROM ProdottoEntity p")
+	public SortedSet<String> findAllProdottoCodice();
+	
 	@Query("FROM ProdottoEntity p WHERE p.codiceProdotto = :codice")
 	public Optional<ProdottoEntity> findByCodice(@Param("codice") final String codice);
 	
@@ -31,9 +34,6 @@ public interface ProdottoRepository extends JpaRepository<ProdottoEntity, Long> 
 	@Query("FROM ProdottoEntity p WHERE p NOT IN"
 			+ " (SELECT d.prodotto FROM DisponibilitaEntity d JOIN d.negozio n WHERE n.negozioId = :negozio_id)")
 	public List<ProdottoEntity> findAllNotInNegozio(@Param("negozio_id")final Long negozioId);
-
-	/* Query Su Attributi Specifici*/
 	
-	@Query("SELECT p.codiceProdotto FROM ProdottoEntity p")
-	public SortedSet<String> findAllProdottoCodice();
+	
 }

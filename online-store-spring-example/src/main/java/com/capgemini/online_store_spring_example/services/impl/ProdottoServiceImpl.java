@@ -35,6 +35,15 @@ public class ProdottoServiceImpl implements IProdottoService {
 		
 		return entitiesFound;
 	}
+	
+	@Override
+	public SortedSet<String> findAllProdottoCodice() {
+		SortedSet<String> codici = prodottoRepository.findAllProdottoCodice();
+		if(codici.isEmpty()) {
+			log.debug(this.getClass().getName() + " -- " + ProdottoEntity.class.getName() + " no record found");
+		}
+		return codici;
+	}
 
 	@Override
 	public List<NegozioEntity> findStoresWithProduct(long prodottoId) {
@@ -101,14 +110,41 @@ public class ProdottoServiceImpl implements IProdottoService {
 		}
 		return saved;
 	}
+	
+	@Override
+	@Transactional(rollbackOn = DataRelatedException.class)
+	public void delete(final ProdottoEntity entity)
+			throws DataRelatedException{
+		try {
+			this.prodottoRepository.delete(entity);
+		}catch(final DataIntegrityViolationException e) {
+			throw new DataRelatedException("Error deleting entity with id " + entity.getProdottoId() + " and codice " + entity.getCodiceProdotto());
+		}
+	}
 
 	@Override
-	public SortedSet<String> findAllProdottoCodice() {
-		SortedSet<String> codici = prodottoRepository.findAllProdottoCodice();
-		if(codici.isEmpty()) {
-			log.debug(this.getClass().getName() + " -- " + ProdottoEntity.class.getName() + " no record found");
+	public ProdottoEntity update(ProdottoEntity entity, ProdottoEntity entityUpdated) throws DataRelatedException {
+		
+		// Update parametri modificati
+		if (entityUpdated.getNome() != null && entityUpdated.getNome() != "") {
+			entity.setNome(entityUpdated.getNome());
 		}
-		return codici;
+		if (entityUpdated.getDescrizione() != null && entityUpdated.getDescrizione() != "") {
+			entity.setDescrizione(entityUpdated.getDescrizione());
+		}
+		if (entityUpdated.getPrezzo() != null && entityUpdated.getPrezzo() > 0) {
+			entity.setPrezzo(entityUpdated.getPrezzo());
+		}
+		if (entityUpdated.getCategoria() != null) {
+			entity.setCategoria(entityUpdated.getCategoria());
+		}
+		
+		// salva e  commit cambiamenti
+		ProdottoEntity entitySavedAndUpdated = this.save(entity);
+		
+		return entitySavedAndUpdated;
 	}
+	
+	
 
 }

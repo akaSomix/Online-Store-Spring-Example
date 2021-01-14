@@ -11,6 +11,8 @@ public interface IProdottoService {
 
 	public List<ProdottoEntity> findAll();
 
+	public SortedSet<String> findAllProdottoCodice();
+	
 	public List<NegozioEntity> findStoresWithProduct(final long prodottoId);
 	
 	public List<ProdottoEntity> findAllNotInNegozio(final long negozioId);
@@ -23,6 +25,8 @@ public interface IProdottoService {
 
 	public ProdottoEntity save(final ProdottoEntity entity)throws DataRelatedException;
 	
-	public SortedSet<String> findAllProdottoCodice();
-	
+	public void delete(final ProdottoEntity entity)throws DataRelatedException;
+
+	public ProdottoEntity update(ProdottoEntity entity, ProdottoEntity entityUpdated)throws DataRelatedException;
+
 }

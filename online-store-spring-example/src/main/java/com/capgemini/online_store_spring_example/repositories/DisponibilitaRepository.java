@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.capgemini.online_store_spring_example.entities.DisponibilitaEntity;
 import com.capgemini.online_store_spring_example.entities.NegozioEntity;
+import com.capgemini.online_store_spring_example.entities.ProdottoEntity;
 import com.capgemini.online_store_spring_example.entities.composite_keys.DisponibilitaCompositeKey;
 
 @Repository
@@ -16,5 +17,9 @@ public interface DisponibilitaRepository extends JpaRepository<DisponibilitaEnti
 	@Modifying
 	@Query("DELETE FROM DisponibilitaEntity D WHERE D.negozio = :negozio")
 	public void deleteByNegozio(@Param("negozio") final NegozioEntity negozio);
+	
+	@Modifying
+	@Query("DELETE FROM DisponibilitaEntity D WHERE D.prodotto = :prodotto")
+	public void deleteByProdotto(@Param("prodotto") final ProdottoEntity prodotto);
 	
 }

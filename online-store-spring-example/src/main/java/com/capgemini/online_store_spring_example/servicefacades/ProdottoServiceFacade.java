@@ -35,6 +35,10 @@ public class ProdottoServiceFacade {
 		return vms;
 	}
 	
+	public SortedSet<String> findAllProdottoCodice(){
+		return prodottoService.findAllProdottoCodice();
+	}
+	
 	public List<NegozioVm> findStoresWithProduct(final Long prodottoId){
 		List<NegozioEntity> entitiesFound = prodottoService.findStoresWithProduct(prodottoId);
 	
@@ -73,7 +77,17 @@ public class ProdottoServiceFacade {
 		prodottoService.save(entityToSave);
 	}
 	
-	public SortedSet<String> findAllProdottoCodice(){
-		return prodottoService.findAllProdottoCodice();
+	public void delete(final ProdottoVm prodotto) throws DataRelatedException{
+		ProdottoEntity entityToDelete = prodottoAssembler.toEntity(prodotto);
+		
+		prodottoService.delete(entityToDelete);
+	}
+	
+	public ProdottoVm update(final ProdottoVm prodotto, ProdottoVm prodottoUpdated) throws DataRelatedException {
+		ProdottoEntity entityToUpdate = prodottoAssembler.toEntity(prodotto);	
+		ProdottoEntity entityUpdated = prodottoAssembler.toEntity(prodottoUpdated);
+		
+		entityUpdated = prodottoService.update(entityToUpdate, entityUpdated);
+		return prodottoAssembler.toViewModel(entityUpdated);
 	}
 }
