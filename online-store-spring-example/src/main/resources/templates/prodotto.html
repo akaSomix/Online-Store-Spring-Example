@@ -21,7 +21,7 @@
 	<!-- NOME PRODOTTO -->
 	<h1 th:text="${prodottoCurrent.getNome()}"></h1>
 
-	<form th:action="@/prodotti/{codice}/modifica(codice=${prodottoCurrent.getCodice()})" method="GET">
+	<form th:action="@{/prodotti/{codice}/modifica(codice=${prodottoCurrent.getCodice()})}" method="GET">
 		<input type="submit" value="Modifica Prodotto"/>
 	</form>
 
