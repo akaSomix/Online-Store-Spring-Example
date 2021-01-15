@@ -31,6 +31,8 @@ public class LogAspect {
 		}
 	}
 	
+	//TEST
+	
 	/*
 	 * Logging per le operazioni di save a livello service
 	 */
