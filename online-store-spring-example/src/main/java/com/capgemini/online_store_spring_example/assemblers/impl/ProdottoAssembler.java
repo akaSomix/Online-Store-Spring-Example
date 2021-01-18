@@ -29,7 +29,7 @@ public class ProdottoAssembler implements IAssemblerFactory<ProdottoVm, Prodotto
 		entity.setNome(viewModel.getNome());
 		
 		// Inserimento di una descrizione di Default se non presente
-		if(viewModel.getDescrizione() != null) {
+		if(viewModel.getDescrizione() == "") {
 			entity.setDescrizione(EntityConstants.DEFAULT_PRODOTTO_ENTITY_DESCRIZIONE);
 		} else {
 			entity.setDescrizione(viewModel.getDescrizione());
