@@ -75,8 +75,9 @@ h1.title{
 /* Individuals */
 
 #fromProdotto{
-	background-color: #2eafc6;
+	background-color: #f1792f;	
 	height: 400px;
+	color: white;	
 }
 
 #fromProdotto .title{
@@ -84,9 +85,8 @@ h1.title{
 }
 
 #fromCitta{
-	background-color: #f1792f;
+	background-color: #2eafc6;
 	height: 500px;
-	color: white;
 }
 
 #fromCitta .title{

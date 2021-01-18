@@ -7,12 +7,16 @@
 </head>
 <body>
 	<nav>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/}">Home</a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi/create}">Crea Negozio</a>
 		</span>
+		<form th:action="@{/prodotti}" method="GET" th:object="${searchContent}" class="box">
+			<input type="text" th:field="*{value}" placeholder="Cerca prodotto" class="search"/>
+			<input type="submit" value="Search" class="submit"/>
+		</form>
 	</nav>
 	<h1>Pagina Negozi</h1>
 		<div th:each="negozio: ${negozi}" class="card" id="negozioCard">

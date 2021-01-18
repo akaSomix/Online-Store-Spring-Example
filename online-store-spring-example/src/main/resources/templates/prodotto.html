@@ -7,15 +7,19 @@
 </head>
 <body>
 	<nav>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/}">Home</a>
 		</span>
-		<span th:if="${negozioId != null}" class="button-box">
+		<span th:if="${negozioId != null}" class="button box">
 			<a th:href="@{/negozi/{id}/prodotti(id=${negozioId})}">Torna al Negozio</a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi}">Negozi</a>
 		</span>
+		<form th:action="@{/prodotti}" method="GET" th:object="${searchContent}" class="box">
+			<input type="text" th:field="*{value}" placeholder="Cerca prodotto" class="search"/>
+			<input type="submit" value="Search" class="submit"/>
+		</form>
 	</nav>
 	
 	<!-- NOME PRODOTTO -->
@@ -32,7 +36,7 @@
 		<h3 th:text="${prodottoCurrent.getCategoriaNome()}">CATEGORIA</h3>
 		
 		<!-- Disponibilita -->
-		<div th:if="negoziFornitori != null">
+		<div th:if="${negoziFornitori != null}">
 			<h3> Disponibile nei Negozi:</h3>
 			<table>
 				<tr th:each="fornitore : ${negoziFornitori}">

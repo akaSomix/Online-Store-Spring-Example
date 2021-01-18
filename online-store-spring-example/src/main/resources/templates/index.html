@@ -10,35 +10,30 @@
 </head>
 <body>
 	<nav>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/}">Home</a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi}">Negozi</a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi/create}">Crea Negozio</a>
 		</span>
+		
+		<form th:action="@{/prodotti}" method="GET" th:object="${searchContent}" class="box">
+			<input type="text" th:field="*{value}" placeholder="Cerca prodotto" class="search"/>
+			<input type="submit" value="Search" class="submit"/>
+		</form>
 	</nav>
-	
+
 	<div class="top container">
 		<div class= "header">
 			<h1 class="text title"> Online </h1>
 			<span class = "line"></span>
 			<h1 class="text title stroke"> Store </h1>
 		</div>
-<!-- 		<img src="../static/assets/indexBg.png" class="banner"/> -->
 		<img th:src="@{/assets/banner.png}" class="banner" draggable="false"/>	
 	</div>
-	
-	<form th:action="@{/prodotti}"  method="GET" class = "container" id="fromProdotto">
-		<h2 class="text title"> Cerchi qualcosa nello specifico? </h2>
-		<div>
-			<label class="text">Prodotto</label>
-			<input th:text="${prefix}" name="prefix" type="text">
-			<input type="submit" value="Cerca Prodotti"> 
-		</div>
-	</form>
 	
 	<form th:action="@{/negozi/da-citta}" method="GET" class = "container" id="fromCitta">
 		<h2 class="text title"> Cerca i Negozi più vicini a te!</h2>
@@ -49,6 +44,15 @@
 			<label class="text">CAP</label>
 			<input th:text="${citta_cap}" name="citta_cap" type="text" id="capField">
 			<input type="submit" value="Cerca Negozi"> 
+		</div>
+	</form>
+	
+	<form th:action="@{/prodotti}"  method="GET" th:object="${searchContent}" class = "container" id="fromProdotto">
+		<h2 class="text title"> Cerchi qualcosa nello specifico? </h2>
+		<div>
+			<label class="text">Prodotto</label>
+			<input th:field="*{value}" type="text">
+			<input type="submit" value="Cerca Prodotti"> 
 		</div>
 	</form>
 

@@ -7,15 +7,19 @@
 </head>
 <body>
 	<nav>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/}">Home</a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi}">Negozi</a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi/{id}/prodotti/add(id=${negozio.getId()})}">Aggiungi Prodotti</a>
 		</span>
+		<form th:action="@{/prodotti}" method="GET" th:object="${searchContent}" class="box">
+			<input type="text" th:field="*{value}" placeholder="Cerca prodotto" class="search"/>
+			<input type="submit" value="Search" class="submit"/>
+		</form>
 	</nav>
 	<h1 th:text="${'Prodotti di ' + negozio.getNome()}"></h1>
 
@@ -24,7 +28,6 @@
 			<div id="placeholderImg"></div>
 		 	<h3 th:text="${prodotto.getNome()}" class= "text title"></h3>
 		 	<p th:text="${prodotto.getPrezzo() + '€'}" class="text"></p>
-		 	<p th:text="${prodotto.getDescrizione()}" class="text"></p>
 		 	<p th:text="${prodotto.getCategoriaNome()}" class="text"></p>
 		 	<a th:href="@{/negozi/{id}/prodotti/{codice}(id=${negozio.getId()}, codice=${prodotto.getCodice()})}">Mostra altro</a>
 		</div>

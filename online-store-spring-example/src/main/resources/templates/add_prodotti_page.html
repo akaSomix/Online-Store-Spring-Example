@@ -7,13 +7,13 @@
 </head>
 <body>
 	<nav>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/}" >Home</a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi/{id}/prodotti(id=${negozio.getId()})}" th:text="${'Torna a ' + negozio.getNome()}"></a>
 		</span>
-		<span class="button-box">
+		<span class="button box">
 			<a th:href="@{/negozi/{id}/prodotti/create-new(id=${negozio.getId()})}" >Nuovo Prodotto</a>
 		</span>
 	</nav>
