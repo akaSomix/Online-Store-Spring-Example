@@ -30,9 +30,7 @@ public class LogAspect {
 			log.info(vmType + " has been transformed into Entity"); 
 		}
 	}
-	
-	//TEST
-	
+		
 	/*
 	 * Logging per le operazioni di save a livello service
 	 */
