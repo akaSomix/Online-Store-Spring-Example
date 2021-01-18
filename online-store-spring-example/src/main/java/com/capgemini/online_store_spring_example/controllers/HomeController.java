@@ -19,6 +19,7 @@ import com.capgemini.online_store_spring_example.servicefacades.CittaServiceFaca
 import com.capgemini.online_store_spring_example.servicefacades.NegozioServiceFacade;
 import com.capgemini.online_store_spring_example.viewmodels.CittaVm;
 import com.capgemini.online_store_spring_example.viewmodels.NegozioVm;
+import com.capgemini.online_store_spring_example.viewmodels.SearchContentVm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +36,9 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String getIndex(Model model) {
+		//Aggiungi il prossimo elemento di ricerca
+		model.addAttribute("searchContent", new SearchContentVm());
+		
 		return "index";
 	}
 	

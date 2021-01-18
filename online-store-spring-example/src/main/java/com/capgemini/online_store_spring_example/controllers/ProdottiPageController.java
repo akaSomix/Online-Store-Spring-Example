@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.capgemini.online_store_spring_example.commons.DataRelatedException;
+import com.capgemini.online_store_spring_example.servicefacades.CategoriaServiceFacade;
 import com.capgemini.online_store_spring_example.servicefacades.DisponibilitaServiceFacade;
 import com.capgemini.online_store_spring_example.servicefacades.ProdottoServiceFacade;
+import com.capgemini.online_store_spring_example.viewmodels.CategoriaVm;
 import com.capgemini.online_store_spring_example.viewmodels.NegozioVm;
 import com.capgemini.online_store_spring_example.viewmodels.ProdottoVm;
+import com.capgemini.online_store_spring_example.viewmodels.SearchContentVm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,9 +31,12 @@ public class ProdottiPageController {
 	
 	@Autowired
 	public DisponibilitaServiceFacade disponibilitaService;
+	
+	@Autowired
+	public CategoriaServiceFacade categoriaService;
 
 	@RequestMapping(value = "/prodotti", method = RequestMethod.GET)
-	public String showProdottiByName(@ModelAttribute("prefix")String prefix,
+	public String showProdottiByName(@ModelAttribute SearchContentVm searchContent,
 			BindingResult bindingResult, Model model) {
 		
 		if(bindingResult.hasErrors()){
@@ -40,10 +46,14 @@ public class ProdottiPageController {
         }
 		
 		// retrieve VMs
-		List<ProdottoVm> prodotti = prodottoService.findByNomeStartingWith(prefix);
+		List<ProdottoVm> prodotti = prodottoService.findByNomeStartingWith(searchContent.getValue());
 		
 		//update model and redirect
 		model.addAttribute("prodotti", prodotti);
+		
+		//Aggiungi il prossimo elemento di ricerca
+		model.addAttribute("searchContent", new SearchContentVm());
+		
 		return "lista_prodotti_page";
 	}
 	
@@ -57,6 +67,9 @@ public class ProdottiPageController {
 		// Aggiunge i negozi in cui il prodotto e' disponibile
 		List<NegozioVm> negoziFornitori = prodottoService.findStoresWithProduct(prodotto.getId());
 		model.addAttribute("negoziFornitori", negoziFornitori);
+		
+		//Aggiungi il prossimo elemento di ricerca
+		model.addAttribute("searchContent", new SearchContentVm());
 		
 		return "prodotto";
 	}
@@ -86,7 +99,7 @@ public class ProdottiPageController {
 		
 		// Prodotto da Aggiornare
 		ProdottoVm prodotto = prodottoService.findByCodice(codice);
-		
+				
 		// Aggiornamento
 		try {
 			prodotto = prodottoService.update(prodotto, prodottoUpdated);
@@ -98,6 +111,24 @@ public class ProdottiPageController {
 		return "redirect:/prodotti/" + codice;
 	}
 	
+	@RequestMapping(value ="/prodotti/{codice}/modifica", method = RequestMethod.GET)
+	public String showModificaProdottoPage(@PathVariable("codice") String codice, Model model) {
+		
+		// Prodotto da modificare nel form
+		ProdottoVm prodottoUpdated = new ProdottoVm();
+		model.addAttribute("prodottoUpdated", prodottoUpdated);
+		
+		// Prodotto esistente
+		ProdottoVm prodottoCurrent = prodottoService.findByCodice(codice);
+		model.addAttribute("prodottoCurrent", prodottoCurrent);
+		
+		// Lista di Categorie
+		List<CategoriaVm> categoriaList = categoriaService.findAll();
+		model.addAttribute("categoriaList", categoriaList);
+		
+		return "modifica_prodotto_page";
+	}
+	
 	@RequestMapping(value = "/negozi/{id}/prodotti/{codice}", method = RequestMethod.GET)
 	public String showProdottoByCodiceFromNegozio(@PathVariable("id") Long negozioId, 
 			@PathVariable("codice") String codice, Model model) {
@@ -106,6 +137,9 @@ public class ProdottiPageController {
 		model.addAttribute("prodottoCurrent", prodotto);
 		
 		model.addAttribute("negozioId", negozioId);
+		
+		//Aggiungi il prossimo elemento di ricerca
+		model.addAttribute("searchContent", new SearchContentVm());
 		
 		return "prodotto";
 	}

@@ -24,6 +24,7 @@ import com.capgemini.online_store_spring_example.viewmodels.CategoriaVm;
 import com.capgemini.online_store_spring_example.viewmodels.DisponibilitaVm;
 import com.capgemini.online_store_spring_example.viewmodels.NegozioVm;
 import com.capgemini.online_store_spring_example.viewmodels.ProdottoVm;
+import com.capgemini.online_store_spring_example.viewmodels.SearchContentVm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,6 +53,9 @@ public class NegoziPageController {
 		// update model with attributes 
 		model.addAttribute("negozi", negozi);
 		
+		//Aggiungi il prossimo elemento di ricerca
+		model.addAttribute("searchContent", new SearchContentVm());
+		
 		return "lista_negozi_page";
 	}
 	
@@ -69,6 +73,9 @@ public class NegoziPageController {
 				
 		// retrieve VMs 
 		List<NegozioVm> negozi = negozioService.findByCittaNomeOrCap(nome, cap);
+		
+		//Aggiungi il prossimo elemento di ricerca
+		model.addAttribute("searchContent", new SearchContentVm());
 		
 		// update model and redirect
 		model.addAttribute("negozi", negozi);
@@ -110,6 +117,9 @@ public class NegoziPageController {
 		
 		model.addAttribute("negozio", negozio);
 		model.addAttribute("prodottiInNegozio", prodottiFound);
+		
+		//Aggiungi il prossimo elemento di ricerca
+		model.addAttribute("searchContent", new SearchContentVm());
 		
 		return "negozio";
 	}
