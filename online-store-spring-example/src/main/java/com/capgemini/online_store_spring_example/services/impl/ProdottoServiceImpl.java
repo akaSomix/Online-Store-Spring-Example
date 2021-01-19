@@ -88,7 +88,7 @@ public class ProdottoServiceImpl implements IProdottoService {
 	
 	@Override
 	public List<ProdottoEntity> findByNomeStartingWith(String prefix) {
-		List<ProdottoEntity> entitiesFound = prodottoRepository.findByNomeStartingWith(prefix);
+		List<ProdottoEntity> entitiesFound = prodottoRepository.findByNomeContainingPrefix(prefix);
 		
 		if(entitiesFound.isEmpty()) {
 			log.info(this.getClass().getName() + " -- " + ProdottoEntity.class.getName() + " no record found");

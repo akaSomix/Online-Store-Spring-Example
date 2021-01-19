@@ -16,18 +16,14 @@ public interface NegozioRepository extends JpaRepository<NegozioEntity, Long> {
 	@Query("FROM NegozioEntity n WHERE n.citta.cittaId = :citta_id")
 	public List<NegozioEntity> findByCittaId(@Param("citta_id") final Long cittaId);
 	
-	@Query("FROM NegozioEntity n WHERE n.citta.nome = :nome OR n.citta.cap = :cap")
+	@Query("FROM NegozioEntity n WHERE n.citta.nome LIKE %:nome% OR n.citta.cap = :cap")
 	public List<NegozioEntity> findByCittaNomeOrCap(@Param("nome") final String cittaNome, @Param("cap") final String cittaCap);
 
 	public List<NegozioEntity> findByNome(final String nome);
 	
 	public List<NegozioEntity> findAllOrderByNome(final String nome);
 	
-	@Query("SELECT d.quantita FROM DisponibilitaEntity d WHERE d.negozio.negozioId = :negozio_id AND d.prodotto.prodottoId = :prodotto_id")
-	public Integer quantityByProdottoId(@Param("prodotto_id") final Long prodottoId,@Param("negozio_id") final Long negozioId );
-
-	@Query("SELECT d.prodotto FROM DisponibilitaEntity d WHERE d.negozio.negozioId = :negozio_id AND d.quantita > 0")
+	@Query("SELECT d.prodotto FROM DisponibilitaEntity d WHERE d.negozio.negozioId = :negozio_id AND d.disponibile = 1")
 	public List<ProdottoEntity> findProdottiDisponibiliByNegozioId(@Param("negozio_id") final Long negozioId); 
-
 	
 }

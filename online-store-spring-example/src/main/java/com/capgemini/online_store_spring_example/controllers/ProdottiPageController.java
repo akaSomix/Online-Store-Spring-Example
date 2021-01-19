@@ -16,9 +16,10 @@ import com.capgemini.online_store_spring_example.servicefacades.CategoriaService
 import com.capgemini.online_store_spring_example.servicefacades.DisponibilitaServiceFacade;
 import com.capgemini.online_store_spring_example.servicefacades.ProdottoServiceFacade;
 import com.capgemini.online_store_spring_example.viewmodels.CategoriaVm;
+import com.capgemini.online_store_spring_example.viewmodels.DisponibilitaVm;
 import com.capgemini.online_store_spring_example.viewmodels.NegozioVm;
 import com.capgemini.online_store_spring_example.viewmodels.ProdottoVm;
-import com.capgemini.online_store_spring_example.viewmodels.SearchContentVm;
+import com.capgemini.online_store_spring_example.viewmodels.content.SearchContentVm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -85,6 +86,7 @@ public class ProdottiPageController {
 			
 			// Elimina il Prodotto
 			prodottoService.delete(prodotto);
+			
 		} catch(DataRelatedException e) {
 			//TODO HANDLE Data Related Exception on saving a new negozio
 			return "redirect:/prodotti";
@@ -142,5 +144,21 @@ public class ProdottiPageController {
 		model.addAttribute("searchContent", new SearchContentVm());
 		
 		return "prodotto";
+	}
+	
+	@RequestMapping(value = "/negozi/{id}/prodotti/{codice}/remove", method = RequestMethod.GET)
+	public String disableProdottoFromNegozio(@PathVariable("id") Long negozioId,
+			@PathVariable("codice") String codice, Model model) {
+		
+		DisponibilitaVm disponibilitaToRemove = disponibilitaService.findByNegozioIdAndCodiceProdotto(negozioId, codice);
+		
+		try {
+			disponibilitaService.disable(disponibilitaToRemove);
+		} catch (DataRelatedException e) {
+			//TODO HANDLE Data Related Exception on saving a new negozio
+			return "redirect:/negozi/" + negozioId + "/prodotti";
+		}
+		
+		return "redirect:/negozi/" + negozioId + "/prodotti";
 	}
 }
