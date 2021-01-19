@@ -24,7 +24,7 @@ import com.capgemini.online_store_spring_example.viewmodels.CategoriaVm;
 import com.capgemini.online_store_spring_example.viewmodels.DisponibilitaVm;
 import com.capgemini.online_store_spring_example.viewmodels.NegozioVm;
 import com.capgemini.online_store_spring_example.viewmodels.ProdottoVm;
-import com.capgemini.online_store_spring_example.viewmodels.SearchContentVm;
+import com.capgemini.online_store_spring_example.viewmodels.content.SearchContentVm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,7 +116,16 @@ public class NegoziPageController {
 		NegozioVm negozio = negozioService.findById(id);
 		
 		model.addAttribute("negozio", negozio);
-		model.addAttribute("prodottiInNegozio", prodottiFound);
+		
+		// Se non ci sono prodotti imposta flag
+		if(prodottiFound.size() == 0) {
+			model.addAttribute("noProductsFlag", true);
+		} 
+		else {
+			// Altrimenti aggiungi la lista dei negozi
+			model.addAttribute("prodottiInNegozio", prodottiFound);
+			model.addAttribute("noProductsFlag", false);
+		}
 		
 		//Aggiungi il prossimo elemento di ricerca
 		model.addAttribute("searchContent", new SearchContentVm());
@@ -161,7 +170,7 @@ public class NegoziPageController {
 		
 		// Salvataggio entities 
 		try {
-			disponibilitaService.save(formDisponibilita);
+			disponibilitaService.enableOrSave(formDisponibilita);
 		}catch(DataRelatedException e) {
 			//TODO HANDLE Data Related Exception on saving a new negozio
 			return "redirect:/negozi/" + id + "/prodotti";
