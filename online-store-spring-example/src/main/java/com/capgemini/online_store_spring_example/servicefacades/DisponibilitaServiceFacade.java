@@ -30,9 +30,21 @@ public class DisponibilitaServiceFacade {
 	@Autowired
 	private ProdottoAssembler prodottoAssembler;
 	
-	public void save(final DisponibilitaVm disponibilitaVm)throws DataRelatedException{
+	public DisponibilitaVm findByNegozioIdAndCodiceProdotto(Long negozioId, String codiceProdotto) {
+		DisponibilitaEntity entity = disponibilitaService.findByNegozioIdAndCodiceProdotto(negozioId, codiceProdotto);
+		DisponibilitaVm vm = disponibilitaAssembler.toViewModel(entity);
+		
+		return vm;
+	}
+	
+	public void enableOrSave(final DisponibilitaVm disponibilitaVm)throws DataRelatedException{
 		DisponibilitaEntity disponibilitaEntity = disponibilitaAssembler.toEntity(disponibilitaVm);
-		disponibilitaService.save(disponibilitaEntity);
+		disponibilitaService.enableOrSave(disponibilitaEntity);
+	}
+	
+	public void disable(final DisponibilitaVm disponibilitaVm)throws DataRelatedException{
+		DisponibilitaEntity disponibilitaEntity = disponibilitaAssembler.toEntity(disponibilitaVm);
+		disponibilitaService.disable(disponibilitaEntity);
 	}
 	
 	public void deleteByNegozio(final NegozioVm negozioVm)throws DataRelatedException{

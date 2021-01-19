@@ -30,7 +30,6 @@ public class DisponibilitaAssembler implements IAssemblerFactory<DisponibilitaVm
 		DisponibilitaEntity entity = new DisponibilitaEntity();
 		entity.setProdotto(p);
 		entity.setNegozio(n);
-		entity.setQuantita(viewModel.getQuantita());
 		
 		return entity;
 	}
@@ -42,7 +41,6 @@ public class DisponibilitaAssembler implements IAssemblerFactory<DisponibilitaVm
 		DisponibilitaVm viewModel = new DisponibilitaVm();
 		viewModel.setProdottoId(entity.getProdotto().getProdottoId());
 		viewModel.setNegozioId(entity.getNegozio().getNegozioId());
-		viewModel.setQuantita(entity.getQuantita());
 		
 		return viewModel;
 	}

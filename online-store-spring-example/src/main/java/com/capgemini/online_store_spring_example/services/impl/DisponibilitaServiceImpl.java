@@ -13,18 +13,31 @@ import com.capgemini.online_store_spring_example.entities.ProdottoEntity;
 import com.capgemini.online_store_spring_example.repositories.DisponibilitaRepository;
 import com.capgemini.online_store_spring_example.services.IDisponibilitaService;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Service
+@Slf4j
 public class DisponibilitaServiceImpl implements IDisponibilitaService {
 
 	@Autowired
 	private DisponibilitaRepository disponibilitaRepository;
 	
 	@Override
+	public DisponibilitaEntity findByNegozioIdAndCodiceProdotto(Long negozioId, String codiceProdotto) {
+		DisponibilitaEntity entityFound = disponibilitaRepository.findByNegozioIdAndCodiceProdotto(negozioId, codiceProdotto);
+		
+		if(entityFound == null) {
+			log.info(this.getClass().getName() + " -- " + DisponibilitaEntity.class.getName() + " no record found");
+		}
+		
+		return entityFound;
+	}
+	
+	@Override
 	@Transactional(rollbackOn = DataRelatedException.class)
 	public DisponibilitaEntity save(DisponibilitaEntity entity) throws DataRelatedException {
 		DisponibilitaEntity saved;
-		
 		try {
 			saved = this.disponibilitaRepository.saveAndFlush(entity);
 		}catch(final DataIntegrityViolationException e){
@@ -33,7 +46,7 @@ public class DisponibilitaServiceImpl implements IDisponibilitaService {
 		
 		return saved;
 	}
-
+	
 	@Override
 	@Transactional(rollbackOn = DataRelatedException.class)
 	public void deleteByNegozio(NegozioEntity negozio) throws DataRelatedException {
@@ -52,6 +65,20 @@ public class DisponibilitaServiceImpl implements IDisponibilitaService {
 		}catch(final DataIntegrityViolationException e){
 			throw new DataRelatedException("Error deleting " + this.getClass().getName() + " from Prodotto id " + prodotto.getProdottoId());
 		}
+	}
+	
+	@Override
+	@Transactional(rollbackOn = DataRelatedException.class)
+	public void enableOrSave(DisponibilitaEntity entity) throws DataRelatedException{
+		entity.setDisponibile(true);
+		this.save(entity);
+	}
+
+	@Override
+	@Transactional(rollbackOn = DataRelatedException.class)
+	public void disable(DisponibilitaEntity entity) throws DataRelatedException{
+		entity.setDisponibile(false);
+		this.save(entity);
 	}
 	
 }

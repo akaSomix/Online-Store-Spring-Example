@@ -13,7 +13,13 @@ import com.capgemini.online_store_spring_example.entities.composite_keys.Disponi
 
 @Repository
 public interface DisponibilitaRepository extends JpaRepository<DisponibilitaEntity, DisponibilitaCompositeKey>{
-
+	
+	@Query("FROM DisponibilitaEntity d"
+			+ " JOIN d.negozio n JOIN d.prodotto p "
+			+ "WHERE n.negozioId = :negozioId AND p.codiceProdotto = :codiceProdotto")
+	public DisponibilitaEntity findByNegozioIdAndCodiceProdotto(@Param("negozioId") final Long negozioId,
+			@Param("codiceProdotto") final String codiceProdotto);
+	
 	@Modifying
 	@Query("DELETE FROM DisponibilitaEntity D WHERE D.negozio = :negozio")
 	public void deleteByNegozio(@Param("negozio") final NegozioEntity negozio);
