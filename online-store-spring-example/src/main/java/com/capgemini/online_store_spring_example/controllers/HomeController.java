@@ -19,7 +19,7 @@ import com.capgemini.online_store_spring_example.servicefacades.CittaServiceFaca
 import com.capgemini.online_store_spring_example.servicefacades.NegozioServiceFacade;
 import com.capgemini.online_store_spring_example.viewmodels.CittaVm;
 import com.capgemini.online_store_spring_example.viewmodels.NegozioVm;
-import com.capgemini.online_store_spring_example.viewmodels.content.SearchContentVm;
+import com.capgemini.online_store_spring_example.viewmodels.SearchContentVm;
 
 import lombok.extern.slf4j.Slf4j;
 

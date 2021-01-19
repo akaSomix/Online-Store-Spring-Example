@@ -10,4 +10,7 @@ public class SearchContentVm implements IViewModel{
 	@NotNull
 	private String value;
 
+	public SearchContentVm() {
+		this.value = "";
+	}
 }
