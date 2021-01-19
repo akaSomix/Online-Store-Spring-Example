@@ -3,6 +3,7 @@ package com.capgemini.online_store_spring_example.viewmodels;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -18,6 +19,7 @@ public class ProdottoVm implements IViewModel{
 	@NotBlank
 	@Length(min = EntityConstants.PRODOTTO_ENTITY_CODICE_LENGTH, 
 	max = EntityConstants.PRODOTTO_ENTITY_CODICE_LENGTH)
+	@Pattern(regexp = "[a-z]{3}[0-9]{3}[0-9]*")
 	private String codice;
 	
 	@NotBlank
