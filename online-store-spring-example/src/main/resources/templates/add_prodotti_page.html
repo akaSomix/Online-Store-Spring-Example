@@ -31,8 +31,7 @@
 	 
 			<h3 th:text="${prodotto.getNome()}"></h3>
 			<h4 th:text="${prodotto.getPrezzo() + '€'}"></h4>
-			<p>Quantita:</p>
-			<input th:field="*{quantita}"/>
+
 			<!-- hidden values -->
 			<select hidden type="text" th:field= "*{prodottoId}" >
 				<option hidden th:value="${prodotto.getId}" selected="selected"></option>

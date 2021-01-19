@@ -51,6 +51,14 @@
 		</select>		
 		
 		<input type="submit" value="Salva Modifiche"/>
+		<p style="cursor: pointer; color: blue;" id="annullaButton">Annulla</p>
+		<script>
+			var annullaBtn = document.getElementById('annullaButton');
+			
+			annullaBtn.addEventListener("click", () =>{
+				history.go(-1);
+			});
+		</script> 
 	</form>
 </body>
 </html>
