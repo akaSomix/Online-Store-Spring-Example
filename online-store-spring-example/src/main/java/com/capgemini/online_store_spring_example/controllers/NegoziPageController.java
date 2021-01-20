@@ -154,7 +154,7 @@ public class NegoziPageController {
 			model.addAttribute("prodotti", prodottoList);
 			model.addAttribute("noProductsFlag", false);
 		}
-		return "add_prodotti_page";
+		return "creation/add_prodotti_page";
 	}
 	
 	@RequestMapping(value = "/negozi/{id}/prodotti/add-submit", method = RequestMethod.POST)
@@ -209,7 +209,7 @@ public class NegoziPageController {
 		//propaga negozio id
 		model.addAttribute("negozioId", id);
 		
-		return "create_prodotto_page";
+		return "creation/create_prodotto_page";
 	}
 	
 	@RequestMapping(value = "/negozi/{id}/prodotti/create-new", method = RequestMethod.POST)

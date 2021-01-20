@@ -128,7 +128,7 @@ public class ProdottiPageController {
 		List<CategoriaVm> categoriaList = categoriaService.findAll();
 		model.addAttribute("categoriaList", categoriaList);
 		
-		return "modifica_prodotto_page";
+		return "creation/modifica_prodotto_page";
 	}
 	
 	@RequestMapping(value = "/negozi/{id}/prodotti/{codice}", method = RequestMethod.GET)

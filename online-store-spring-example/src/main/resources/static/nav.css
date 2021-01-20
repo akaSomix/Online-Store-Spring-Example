@@ -12,6 +12,10 @@ nav{
 	margin: auto;
 }
 
+.right{
+	float: right;
+}
+
 .button.box{
 	cursor: pointer;
 }

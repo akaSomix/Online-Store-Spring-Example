@@ -3,6 +3,7 @@ package com.capgemini.online_store_spring_example.controllers;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.capgemini.online_store_spring_example.cart.CartEntity;
 import com.capgemini.online_store_spring_example.commons.DataRelatedException;
 import com.capgemini.online_store_spring_example.servicefacades.CittaServiceFacade;
 import com.capgemini.online_store_spring_example.servicefacades.NegozioServiceFacade;
@@ -27,6 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class HomeController {
+	@Resource(name="cart")
+	CartEntity cart;
 	
 	@Autowired
 	NegozioServiceFacade negozioService;
@@ -58,7 +62,7 @@ public class HomeController {
 		
 		model.addAttribute("negozioForm", negozioForm);
 		model.addAttribute("cittaList", cittaList);
-		return "create_negozio_page";
+		return "creation/create_negozio_page";
 	}
 	
 	@RequestMapping(value="/negozi/create", method = RequestMethod.POST)
@@ -79,5 +83,11 @@ public class HomeController {
 			return "redirect:/";
 		}
 		return "redirect:/";
+	}
+
+	@GetMapping("/cart")
+	public String showCartPage(Model model) {
+		model.addAttribute("cart", cart);
+		return "cart_page";
 	}
 }
