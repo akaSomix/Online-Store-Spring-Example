@@ -80,8 +80,11 @@ h1.title{
 	color: white;	
 }
 
-#fromProdotto .title{
-	padding-left: 100px;
+h2.title{
+	margin-left: 50px;
+	padding: 20px;
+	font-size: 40pt;
+	text-shadow: 0px 3px 0px rgba(0,0,0,.2);
 }
 
 #fromCitta{
@@ -89,20 +92,10 @@ h1.title{
 	height: 500px;
 }
 
-#fromCitta .title{
-	text-align: right;
-	padding-right: 100px;
-}
 
 /* Text options */
 
 
 .text{
 	font-family: Tahoma, sans-serif;
-}
-
-h2.text{
-	padding: 30px;
-	font-size: 40pt;
-	text-shadow: 0px 3px 0px rgba(0,0,0,.2);
 }

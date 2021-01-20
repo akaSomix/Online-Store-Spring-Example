@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>ONLINE STORE</title>
+	<title>Cart | ONLINE STORE</title>
 	<link rel = "stylesheet"  type="text/css" th:href="@{/nav.css}"/>	
 </head>
 <body>
@@ -10,18 +10,30 @@
 		<span class="button box">
 			<a th:href="@{/}">Home</a>
 		</span>
-		<span class="button box>
+		<span class="button box">
 			<a th:href="@{/negozi}">Negozi</a>
 		</span>
 		
 		<!-- Right -->
-		<span class="button box right">
+		<span th:attr="count=${session.cartItemCount != null ? session.cartItemCount : 0}" 
+		class="button box right" id="cartMenu">
 			<a th:href="@{/cart}">Carrello</a>
 		</span>
 	</nav>
 	
-	<h1>WORK IN PROGRESS</h1>
+	<h1>WORK IN PROGRESS</h1>	
 	
-	
+	<div th:each="negozioId : ${cartItemsKeys}"> 
+		
+		<h3 th:text="${negozioId}"></h3>
+		
+		<table>
+			<tr th:each="prodotto : ${cartItems.get(negozioId)}">
+				<td th:text="${prodotto.getNome()}"></td>
+				<td th:text="${prodotto.getQuantita()}"></td>
+				<td th:text="${'Prezzo: ' + prodotto.getPrezzo() * prodotto.getQuantita() + '€'}"</td>
+			</tr>
+		<table>
+	</div>
 </body>
 </html>

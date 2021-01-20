@@ -2,6 +2,9 @@ package com.capgemini.online_store_spring_example.controllers;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.capgemini.online_store_spring_example.cart.CartEntity;
+import com.capgemini.online_store_spring_example.cart.CartService;
+import com.capgemini.online_store_spring_example.cart.items.CartRequest;
 import com.capgemini.online_store_spring_example.commons.DataRelatedException;
 import com.capgemini.online_store_spring_example.servicefacades.CategoriaServiceFacade;
 import com.capgemini.online_store_spring_example.servicefacades.DisponibilitaServiceFacade;
@@ -27,6 +33,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ProdottiPageController {
 	
+	@Resource(name="cart")
+	CartEntity cart;
+	
 	@Autowired
 	public ProdottoServiceFacade prodottoService;
 	
@@ -35,6 +44,9 @@ public class ProdottiPageController {
 	
 	@Autowired
 	public CategoriaServiceFacade categoriaService;
+	
+	@Autowired
+	public CartService cartService;
 
 	@RequestMapping(value = "/prodotti", method = RequestMethod.GET)
 	public String showProdottiByName(@ModelAttribute SearchContentVm searchContent,
@@ -143,6 +155,9 @@ public class ProdottiPageController {
 		//Aggiungi il prossimo elemento di ricerca
 		model.addAttribute("searchContent", new SearchContentVm());
 		
+		//Aggiungi oggetto di request per il carrello
+		model.addAttribute("cartRequest", new CartRequest());
+		
 		return "prodotto";
 	}
 	
@@ -160,5 +175,25 @@ public class ProdottiPageController {
 		}
 		
 		return "redirect:/negozi/" + negozioId + "/prodotti";
+	}
+	
+	@RequestMapping(value = "/prodotti/{codice}/aggiungi-al-carrello", method = RequestMethod.POST)
+	public String addProductToCart(@PathVariable("codice") String codice, @ModelAttribute("cartRequest") CartRequest request,
+			Model model, HttpSession session) {
+		
+		// Assegna quantita di default se non specificata
+		if(request.getQuantita() == null)request.setQuantita(1);
+		
+		if(log.isDebugEnabled())
+			log.debug("Cart Request Passata: " + request.toString());
+		
+		// Cart addition
+		cartService.addToCart(this.cart, request);
+		
+		// Update session with 
+		log.warn("ITEM COUNT: " + cart.getItemsCount());
+		session.setAttribute("cartItemCount", cart.getItemsCount());
+		
+		return "redirect:/negozi/"+ request.getNegozioId() +"/prodotti/" + codice;
 	}
 }

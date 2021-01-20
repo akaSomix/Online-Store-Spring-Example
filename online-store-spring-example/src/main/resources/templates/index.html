@@ -26,7 +26,8 @@
 		</form>
 		
 		<!-- Right -->
-		<span class="button box right">
+		<span th:attr="count=${session.cartItemCount != null ? session.cartItemCount : 0}" 
+		class="button box right" id="cartMenu">
 			<a th:href="@{/cart}">Carrello</a>
 		</span>
 	</nav>

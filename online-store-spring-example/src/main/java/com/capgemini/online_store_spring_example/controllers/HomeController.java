@@ -4,6 +4,7 @@ package com.capgemini.online_store_spring_example.controllers;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,6 @@ public class HomeController {
 	public String getIndex(Model model) {
 		//Aggiungi il prossimo elemento di ricerca
 		model.addAttribute("searchContent", new SearchContentVm());
-		
 		return "index";
 	}
 	
@@ -86,8 +86,9 @@ public class HomeController {
 	}
 
 	@GetMapping("/cart")
-	public String showCartPage(Model model) {
-		model.addAttribute("cart", cart);
+	public String showCartPage(Model model, HttpSession session) {
+		model.addAttribute("cartItems", cart.getNegozioItems());
+		model.addAttribute("cartItemsKeys", cart.getNegozioItems().keySet());
 		return "cart_page";
 	}
 }

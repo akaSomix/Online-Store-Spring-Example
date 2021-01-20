@@ -22,7 +22,8 @@
 		</form>
 		
 		<!-- Right -->
-		<span class="button box right">
+		<span th:attr="count=${session.cartItemCount != null ? session.cartItemCount : 0}" 
+		class="button box right" id="cartMenu">
 			<a th:href="@{/cart}">Carrello</a>
 		</span>
 	</nav>
@@ -30,7 +31,7 @@
 	<!-- NOME PRODOTTO -->
 	<h1 th:text="${prodottoCurrent.getNome()}"></h1>
 
-	<form th:action="@{/prodotti/{codice}/modifica(codice=${prodottoCurrent.getCodice()})}" method="GET">
+	<form th:action="@{/prodotti/{codice}/modifica(codice=${prodottoCurrent.getCodice()})}" method="POST">
 		<input type="submit" value="Modifica Prodotto"/>
 	</form>
 
@@ -39,6 +40,34 @@
 		<h4 th:text="${prodottoCurrent.getDescrizione()}"></h4>
 		<h2 th:text="${prodottoCurrent.getPrezzo() + '€'}">PREZZO</h2>
 		<h3 th:text="${prodottoCurrent.getCategoriaNome()}">CATEGORIA</h3>
+		
+		<!-- Acquista Da negozio -->
+		<form th:if="${negozioId != null}" th:action="@{/prodotti/{codice}/aggiungi-al-carrello(codice=${prodottoCurrent.getCodice()})}" 
+		th:object="${cartRequest}" method="POST">
+		
+			<!-- Passaggio dei parametri -->	
+			<select hidden type="text" th:field="*{negozioId}" >
+				<option hidden th:value="${negozioId}" selected="selected"></option>
+			</select>
+			
+			<select hidden type="text" th:field="*{prodottoId}" >
+				<option hidden th:value="${prodottoCurrent.getId()}" selected="selected"></option>
+			</select>
+			
+			<select hidden type="text" th:field="*{nome}" >
+				<option hidden th:value="${prodottoCurrent.getNome()}" selected="selected"></option>
+			</select>
+			
+			<select hidden type="text" th:field="*{prezzo}" >
+				<option hidden th:value="${prodottoCurrent.getPrezzo()}" selected="selected"></option>
+			</select>
+			
+			<!-- Quantita e Submit -->
+			<label>Quantità:</label> 
+			<input type="number" min="1" max="99" th:field="*{quantita}" th:placeholder="1"/>
+				 
+			<input type="submit" value="Aggiungi al Carrello"/>
+		</form>
 		
 		<!-- Disponibilita -->
 		<div th:if="${negoziFornitori != null}">
