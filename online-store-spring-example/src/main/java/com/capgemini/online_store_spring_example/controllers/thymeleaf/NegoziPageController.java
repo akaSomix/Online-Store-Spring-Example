@@ -1,4 +1,4 @@
-package com.capgemini.online_store_spring_example.controllers;
+package com.capgemini.online_store_spring_example.controllers.thymeleaf;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ import com.capgemini.online_store_spring_example.viewmodels.SearchContentVm;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Controller
+//@Controller
 public class NegoziPageController {
 
 	@Autowired
